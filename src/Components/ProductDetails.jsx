@@ -32,7 +32,7 @@ const ProductDetails = () => {
     }, []);
 
     return (
-        <div className="bg-[#778da9] h-screen">
+        <div className="bg-[#778da9] h-screen px-[100px] text-black">
             <div className="flex justify-between items-center">
                 <div className=" mt-11 w-[400px] h-[300px]">
                     <img src={productDetails?.image} />
@@ -81,7 +81,7 @@ const ProductDetails = () => {
                         className="btn btn-primary mt-7 "
                         onClick={() => {
                             dispatch(addToCart(productDetails));
-                            // navigate("/cart");
+                            navigate("/cart");
                         }}>
                         Add To Cart
                     </button>{" "}

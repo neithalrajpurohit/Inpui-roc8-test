@@ -24,7 +24,7 @@ const Cart = () => {
             className="bg-[#639fab] min-h-[100vh]">
             {cartItems?.length >= 1 ? (
                 <div
-                    className="bg-[#e6e6e6] rounded-2xl  w-full h-full  dark:bg-gray-900 bg-opacity-90 top-0 overflow-y-auto "
+                    className="bg-[#e6e6e6] rounded-2xl text-black  w-full h-full  dark:bg-gray-900 bg-opacity-90 top-0 overflow-y-auto "
                     id="chec-div">
                     {/*- more free and premium Tailwind CSS components at https://tailwinduikit.com/ -*/}
                     <div
@@ -59,12 +59,12 @@ const Cart = () => {
                                         <polyline points="15 6 9 12 15 18" />
                                     </svg>
                                     <p
-                                        className="text-sm pl-2 leading-none dark:hover:text-gray-200"
+                                        className="text-sm pl-2 leading-none text-black"
                                         onClick={() => navigate(-1)}>
                                         Back
                                     </p>
                                 </div>
-                                <p className="lg:text-4xl text-3xl font-black leading-10 text-gray-800 dark:text-white pt-3">
+                                <p className="lg:text-4xl text-3xl font-black leading-10 text-gray-800">
                                     Your Items
                                 </p>
                                 <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50"></div>
@@ -84,10 +84,18 @@ const Cart = () => {
                                                 <p className="text-xs leading-3 text-gray-800 dark:text-white md:pt-0 pt-4"></p>
 
                                                 <div className="flex items-center justify-between w-full pt-1">
-                                                    <p className="text-base flex-1 font-black leading-none text-gray-800 dark:text-white">
-                                                        {cartProducts.title}
-                                                    </p>
-                                                    <div className="flex flex-[.4] items-center justify-end gap-5  w-[50px] ">
+                                                    <div>
+                                                        <p className="text-base flex-1 font-black leading-none text-gray-800 ">
+                                                            {cartProducts.title}
+                                                        </p>
+                                                        <div className="mt-4 text-black font-semibold">
+                                                            Price : &#8377;
+                                                            {cartProducts.price *
+                                                                cartProducts.qty}
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex flex-[.4] items-center justify-end gap-5  w-[300px] ">
                                                         <button
                                                             onClick={() => {
                                                                 dispatch(
@@ -101,7 +109,7 @@ const Cart = () => {
                                                                 +
                                                             </span>
                                                         </button>
-                                                        <p>
+                                                        <p className="text-black">
                                                             {cartProducts?.qty}
                                                         </p>
 
@@ -113,7 +121,7 @@ const Cart = () => {
                                                                     )
                                                                 );
                                                             }}
-                                                            className="active:scale-95 transition-transform duration-150 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                            className="active:scale-95 transition-transform duration-150 relative  inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
                                                             <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                                                 -
                                                             </span>

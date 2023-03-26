@@ -15,7 +15,7 @@ export const CartSlice = createSlice({
             if (!prevCartItems) {
                 const prod = [{ ...product, qty: 1 }];
                 localStorage.setItem("cart", JSON.stringify(prod));
-                state.cart.push(prod);
+                state.cart = prod;
             } else {
                 prevCartItems = JSON.parse(prevCartItems);
                 let findProduct = prevCartItems.findIndex((item) => {
@@ -46,11 +46,15 @@ export const CartSlice = createSlice({
                     }
                 });
 
-                if (cartItems.length >= 1 && cartItems[find].qty > 0) {
+                if (cartItems[find].qty >= 2) {
                     console.log(cartItems[find].qty);
                     cartItems[find].qty -= 1;
                     localStorage.setItem("cart", JSON.stringify(cartItems));
                     state.cart = cartItems;
+                } else {
+                    localStorage.removeItem("cart");
+                    console.log(state.cart, "jkkh");
+                    state.cart = [];
                 }
             }
         },
