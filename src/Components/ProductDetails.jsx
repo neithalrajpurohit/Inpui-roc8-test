@@ -1,11 +1,16 @@
 import axios from "axios";
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { addToCart, decrementQty, getCartItems } from "../features/CartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
+    let dispatch = useDispatch();
     let id = useParams();
+    let cart = useSelector((state) => state.cart.cart);
+    let navigate = useNavigate();
     const [productDetails, setProductDetails] = useState({});
-
     const fetchProductDetails = async () => {
         try {
             let response = await axios.get(
@@ -21,6 +26,11 @@ const ProductDetails = () => {
     useEffect(() => {
         fetchProductDetails();
     }, []);
+
+    useEffect(() => {
+        dispatch(getCartItems());
+    }, []);
+
     return (
         <div className="bg-[#778da9] h-screen">
             <div className="flex justify-between items-center">
@@ -67,12 +77,29 @@ const ProductDetails = () => {
                         />
                     </div>
                     <h1>Rated by :{productDetails?.rating?.count} Customers</h1>
-                    <button className="btn btn-primary mt-7 ">
+                    <button
+                        className="btn btn-primary mt-7 "
+                        onClick={() => {
+                            dispatch(addToCart(productDetails));
+                            // navigate("/cart");
+                        }}>
                         Add To Cart
+                    </button>{" "}
+                    <button
+                        className="btn btn-outline"
+                        onClick={() => dispatch(addToCart(productDetails))}>
+                        +
+                    </button>{" "}
+                    {cart.length >= 1 &&
+                        cart?.find((item) => item.id === productDetails.id)
+                            ?.qty}{" "}
+                    <button
+                        className="btn btn-outline"
+                        onClick={() => {
+                            dispatch(decrementQty(productDetails.id));
+                        }}>
+                        -
                     </button>
-                    <button className="btn btn-outline">+</button>
-
-                    <button className="btn btn-outline">-</button>
                 </div>
             </div>
         </div>

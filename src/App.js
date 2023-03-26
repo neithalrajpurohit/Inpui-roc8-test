@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./Components/Header";
 import ProducList from "./Components/ProducList";
 import ProductDetails from "./Components/ProductDetails";
+import Cart from "./Components/Cart";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     path="/productdetails/:id"
                     element={<ProductDetails />}
                 />
+                <Route path="/cart" element={<Cart />} />
             </Routes>
         </div>
     );
