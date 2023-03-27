@@ -18,6 +18,7 @@ export const CartSlice = createSlice({
                 state.cart = prod;
             } else {
                 prevCartItems = JSON.parse(prevCartItems);
+
                 let findProduct = prevCartItems.findIndex((item) => {
                     if (item.id === product.id) {
                         return true;
@@ -25,9 +26,13 @@ export const CartSlice = createSlice({
                         return false;
                     }
                 });
-                if (prevCartItems.length >= 1) {
+                if (!prevCartItems[findProduct]?.qty) {
+                    // add qty property because this is not in the cart
+                    prevCartItems.push({ ...product, qty: 1 });
+                    localStorage.setItem("cart", JSON.stringify(prevCartItems));
+                    state.cart = prevCartItems;
+                } else {
                     prevCartItems[findProduct].qty += 1;
-                    console.log(prevCartItems, "kj");
                     state.cart = prevCartItems;
                     localStorage.setItem("cart", JSON.stringify(prevCartItems));
                 }
@@ -46,15 +51,17 @@ export const CartSlice = createSlice({
                     }
                 });
 
-                if (cartItems[find].qty >= 2) {
+                if (cartItems[find]?.qty >= 2) {
                     console.log(cartItems[find].qty);
                     cartItems[find].qty -= 1;
                     localStorage.setItem("cart", JSON.stringify(cartItems));
                     state.cart = cartItems;
                 } else {
-                    localStorage.removeItem("cart");
-                    console.log(state.cart, "jkkh");
-                    state.cart = [];
+                    if (cartItems[find]) {
+                        cartItems.splice(find, 1);
+                        localStorage.setItem("cart", JSON.stringify(cartItems));
+                        state.cart = cartItems;
+                    }
                 }
             }
         },
